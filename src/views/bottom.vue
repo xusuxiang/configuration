@@ -1,5 +1,6 @@
 <template>
   <div class="bottom">
+    <Divider>bottom配置</Divider>
     <Form :model="bottom" :label-width="200" class="formClass"  inline>
       <FormItem label="tag">
          <Input v-model="bottom.tag" placeholder=""/>
@@ -107,7 +108,7 @@
           </i-switch>
       </FormItem>
        <FormItem label="imgSize">
-         <Input v-model="bottom.imgSize" placeholder=""/>
+         <Input v-model="bottom.imgSize" placeholder="" value="Array"/>
       </FormItem>
       <FormItem label="ignoreLockState">
          <i-switch v-model="bottom.ignoreLockState" size="large">
@@ -129,6 +130,8 @@
       </FormItem>
     </Form>
     <Button type="success" class="btn" @click="addArray">增加</Button>
+    <Button @click="handleReset('formDynamic')" style="margin-left: 8px">重置</Button>
+    <Button type="primary" style="margin-left: 8px">提交</Button>
   </div>
 </template>
 
@@ -168,8 +171,8 @@ export default {
               }
           },
           imgSize: [
-            37.5,
-            46.875
+            // 37.5,
+            // 46.875
           ],
           ignoreLockState: true,
           ignoreBroken: true,

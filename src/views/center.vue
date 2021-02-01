@@ -1,5 +1,6 @@
 <template>
   <div class="center">
+    <Divider>center配置</Divider>
     <Form :model="center" :label-width="200" class="formClass" inline>
          <FormItem label="tag">
             <Input v-model="center.tag" placeholder=""/>
@@ -132,6 +133,8 @@
       </FormItem>
     </Form>
     <Button type="success" class="btn" @click="addArray">增加</Button>
+    <Button @click="handleReset('formDynamic')" style="margin-left: 8px">重置</Button>
+    <Button type="primary" style="margin-left: 8px">提交</Button>
   </div>
 </template>
 

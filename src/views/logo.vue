@@ -1,5 +1,6 @@
 <template>
   <div class="logo">
+    <Divider orientation="left">logo配置</Divider>
       <Form :model="logo" :label-width="100" style="width:40%;text-align: center;">
         <FormItem label="ignoreLockState">
             <i-switch v-model="logo.ignoreLockState" size="large">
@@ -35,6 +36,8 @@
           <Input v-model="logo.left_top_before.size.size" placeholder=""/>
         </FormItem>
         <Button type="success" class="btn" @click="addArray">增加</Button>
+        <Button @click="handleReset('formDynamic')" style="margin-left: 8px">重置</Button>
+        <Button type="primary" style="margin-left: 8px">提交</Button>
     </Form>
     
   </div>

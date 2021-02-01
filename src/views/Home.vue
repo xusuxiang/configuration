@@ -2,10 +2,6 @@
     <div class="layout">
         <Layout>
             <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
-                <!-- <div data-v-fae5bece class="layout-header-bar ivu-layout-header" style="padding: 0px;">
-                    <i data-v-fae5bece class="ivu-icon ivu-icon-md-menu menu-icon" style="font-size: 24px; margin: 0px 20px;">…</i>
-                    <span style="">每天好心情</span>
-                </div> -->
                 <Menu active-name="1-1" theme="dark" width="auto" :class="menuitemClasses">
                     <MenuItem name="1-1">
                         <Icon type="ios-navigate"></Icon>
@@ -24,22 +20,24 @@
                         <span>取件类型配置</span>
                     </MenuItem>
                     <MenuItem name="1-5">
-                    <router-link to="/HomeConfigShow">
-                        <Icon type="ios-keypad"></Icon>
-                        <span>首页配置显示</span>
-                    </router-link>
+                        <router-link to="/HomeConfigShow">
+                            <Icon type="ios-keypad"></Icon>
+                            <span>首页配置显示</span>
+                        </router-link>
                     </MenuItem>
                     <MenuItem name="1-6">
-                    <router-link to="/LoginConfigShow">
-                        <Icon type="ios-keypad"></Icon>
-                        <span>登录配置显示</span>
-                    </router-link>
+                        <router-link to="/LoginConfigShow">
+                            <Icon type="ios-keypad"></Icon>
+                            <span>登录配置显示</span>
+                        </router-link>
                     </MenuItem>
                 </Menu>
             </Sider>
             <Layout>
                 <Header :style="{padding: 0}" class="layout-header-bar">
                     <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '0 20px'}" type="md-menu" size="24"></Icon>
+                    <span style="float:right;padding-right:50px;">今天也要开心鸭</span>
+                    <Avatar style="float:right;margin-top:14px;margin-right:10px" src="https://i.loli.net/2017/08/21/599a521472424.jpg"/>
                 </Header>
                 <Content :style="{margin: '20px', background: '#fff', minHeight: '260px'}">
                     <router-view/>
