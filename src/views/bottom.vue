@@ -108,7 +108,7 @@
           </i-switch>
       </FormItem>
        <FormItem label="imgSize">
-         <Input v-model="bottom.imgSize" placeholder="" value="Array"/>
+         <Input v-model="bottom.imgSize" placeholder=""/>
       </FormItem>
       <FormItem label="ignoreLockState">
          <i-switch v-model="bottom.ignoreLockState" size="large">

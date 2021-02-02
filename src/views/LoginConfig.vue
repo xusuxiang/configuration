@@ -1,13 +1,7 @@
 <template>
   <div class="leftAll">
     <Divider>登录配置</Divider>
-    <Form
-      ref="formDynamic"
-      :model="login"
-      :label-width="200"
-      class="formClass"
-      inline
-    >
+    <Form ref="formDynamic" :model="login" :label-width="200" class="formClass" inline>
       <FormItem label="tag" prop="tag">
         <Input v-model="login.tag" placeholder="" />
       </FormItem>
@@ -103,12 +97,11 @@
       </FormItem>
       <FormItem label="fontSize" prop="fontSize">
         <Input v-model="login.fontSize" placeholder="" />
-        <!-- 是这个输入框吗 -->
       </FormItem>
       <!--需要一个能接受数组的文本框-->
       <FormItem label="imgSize" prop="imgSize">
-        <!-- <Input v-model="login.imgSize" placeholder=""/> -->
-        <AInput @child="showchild"></AInput>
+        <Input v-model="login.imgSize" placeholder="" Array/>
+        <!-- <AInput :model="login.imgSize"></AInput> -->
       </FormItem>
       <FormItem label="ignoreLockState" prop="ignoreLockState">
         <i-switch v-model="login.ignoreLockState" size="large">
@@ -129,12 +122,9 @@
         </i-switch>
       </FormItem>
       <Button type="success" class="btn" @click="addArray">增加</Button>
-      <Button @click="handleReset('formDynamic')" style="margin-left: 8px"
-        >重置</Button
-      >
-      <Button type="primary" style="margin-left: 8px" @click="btn">提交</Button>
+      <Button @click="handleReset('formDynamic')" style="margin-left: 8px">重置</Button>
+      <Button type="primary" style="margin-left: 8px" @click="submitData">提交</Button>
     </Form>
-
   </div>
 </template>
 
@@ -143,19 +133,16 @@ import AInput from "../components/AInput";
 
 export default {
   name: "LoginConfig",
-
   components: {
     AInput, //一个可以接受数组的输入框组件
   },
-
   data() {
     return {
-           msg:'',
       login: {
         tag: "",
         title: "",
         icon: "",
-        flex: "",
+        flex: null,
         background: "",
         color: "",
         next: "",
@@ -180,13 +167,23 @@ export default {
         checkRemaining: false,
       },
       //空数组存放数据的
+      "menu.login":[]
     };
   },
   mounted() {
     window._this = this;
   },
   methods: {
-    showchild(data) {
+    addArray() {
+      this.$store.commit("addConfig", this.login);
+      this.$Message.info("成功添加一条数据");
+      console.log(this.login)
+    },
+    handleReset(name) {
+      console.log(name);
+      this.$refs[name].resetFields();
+    },
+    howchild(data) {
       console.log(data);
      
      this.msg=data
@@ -196,24 +193,26 @@ export default {
       console.log(1)
        console.log(this);
     },
-  
-    addArray() {
-      this.$store.commit("addConfig", this.login);
-      this.$Message.info("成功添加一条数据");
-    },
-    handleReset(name) {
-      console.log(name);
-      this.$refs[name].resetFields();
-    },
-  },
-};
+    //调用接口提交
+    submitData(){
+      this['menu.login']=this.login;//赋值
+      this.$http.post('/config/msgset',JSON.stringify(this['menu.login']),{headers:{'Content-Type': 'application/json'}}).then(res =>{
+      //  console.log(res.msg)
+      this.$Message.success(res.msg);
+      }).catch(err => {
+       console.log(err)
+      this.$Message.error('提交失败');
+      })
+    }
+  }
+}
 </script>
 
 <style scoped>
-.btn {
-  margin-left: 40%;
-}
-.formClass {
-  margin-top: 1%;
-}
+  .btn {
+    margin-left: 40%;
+  }
+  .formClass {
+    margin-top: 1%;
+  }
 </style>

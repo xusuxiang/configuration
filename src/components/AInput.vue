@@ -1,21 +1,31 @@
 <template>
-  <Input @click="modal" v-model="inp" />
+  <!--这里封装一个可以接受数组的组件-->
+  <Input ref="imgSize1" @click="modal('imgSize1')" v-model="imgSize" />
 </template>
 
 <script>
 export default {
   name: "AInput",
-  data() {
-    return {
-      inp: "",
-    };
+  props:{
+    imgSize:{
+      value: Array,
+      required: true
+    }
+    
   },
   methods: {
-    modal() {
-      if (this.inp != "") {this.$emit("child", this.inp)}
+    modal(name) {
+       this.$refs[name].validate((valid) => {
+        if (valid) {
+          this.$emit("formSubmitEvent");
+        } else {
+          return false;
+        }
+      });
+      // if (this.inp != "") {this.$emit("child", this.imgSize)}
     },
   },
-};
+}
 </script>
 
 <style scoped>
