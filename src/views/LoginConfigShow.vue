@@ -130,7 +130,7 @@
               </i-switch>
           </FormItem>
         </Form>
-        <Button type="success" @click="updateData(index)" style="margin-left:40%;">保存</Button>
+        <Button type="success" @click="updateData()" style="margin-left:40%;">保存</Button>
       </div>
   </div>
 </template>
@@ -197,11 +197,9 @@ export default {
         
     },
     //修改数据--调用接口
-    updateData(index){
+    updateData(){
       // this.$store.commit('addConfig',this.login[index])
-      // console.log(this.$store.state[index])
-      this.menu = this.loginInfoList[index];
-      console.log(this.loginInfoList[index])
+      this.menu = this.loginInfoList
       console.log(this.menu);
       let obj={"menu.login":this.menu}//把数组赋值给对象，以这样的形式：{menu.login: []}
       this.$http.post('/config/msgset',JSON.stringify(obj),{headers:{'Content-Type': 'application/json'}}).then(res =>{
