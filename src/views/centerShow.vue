@@ -2,7 +2,7 @@
   <div class="center">
      <br>
     <span style="margin-left:1%;">点击按钮显示数据:</span>
-    <Button type="info" v-for="(item,index) in loginInfoList" @click="changeView(index)" :key="index">{{index+1}}</Button>
+    <Button type="info" v-for="(item,index) in centerInfoList" @click="changeView(index)" :key="index">{{index+1}}</Button>
     <Divider />
     <Form :model="center" :label-width="200" class="formClass" inline>
          <FormItem label="tag">
@@ -185,11 +185,31 @@ export default {
       centerInfoList:[]
     }
   },
+  created(){
+      this.getHomeDate();
+  },
    methods: {
       addArray(){
           this.centerInfoList.push(this.center);
           console.dir(this.centerInfoList)
-      }
+      },
+       //调用接口获取数据
+      getHomeDate(){
+        let type='menu.home';
+        let formData = new FormData();
+        formData.append("type", type);
+        this.$http.post('/config/msgget',formData,{headers:{'Content-Type': 'application/x-www-form-urlencoded'}}).then(res =>{
+            this.centerInfoList = res.data.data.center;
+            console.log(this.bottomInfoList)
+        }).catch(err => {
+            console.log(err)
+        })
+      },
+      //显示数据
+      changeView(index){
+        this.center = this.centerInfoList[index]
+            
+      },
   },
 }
 </script>

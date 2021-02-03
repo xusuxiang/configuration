@@ -2,7 +2,7 @@
   <div class="logo">
      <br>
       <span style="margin-left:1%;">点击按钮显示数据:</span>
-      <Button type="info" v-for="(item,index) in loginInfoList" @click="changeView(index)" :key="index">{{index+1}}</Button>
+      <Button type="info" v-for="(item,index) in LogoInfoList" @click="changeView(index)" :key="index">{{index+1}}</Button>
       <Divider />
       <div>
         <Form :model="logo" :label-width="100" style="width:40%;text-align: center;">
@@ -50,32 +50,51 @@
 <script>
 export default {
   name: 'logoShow',
-      data () {
-        return {
-          logo:{
-            ignoreLockState: false,
-            ignoreBroken: false,
-            checkRemaining: false,
-            left_top_before: {
-                border: "",
-                border_radius: "",
-                url: "",
-                margin:[],
-                size:[]
-            }
-          },
-          //数组
-          LogoInfoList:[]
-        }
+    data () {
+      return {
+        logo:{
+          ignoreLockState: false,
+          ignoreBroken: false,
+          checkRemaining: false,
+          left_top_before: {
+              border: "",
+              border_radius: "",
+              url: "",
+              margin:[],
+              size:[]
+          }
+        },
+        //数组
+        LogoInfoList:[]
+      }
+    },
+    created(){
+      this.getHomeDate();
+    },
+    methods: {
+      //点击按钮表单数据增加进数组
+      addArray(){
+        //console.log(this.logo)
+        this.LogoInfoList.push(this.logo)
+        console.dir(this.LogoInfoList);
       },
-      methods: {
-        //点击按钮表单数据增加进数组
-        addArray(){
-          //console.log(this.logo)
-          this.LogoInfoList.push(this.logo)
-          console.dir(this.LogoInfoList);
-        }
+        //调用接口获取数据
+      getHomeDate(){
+        let type='menu.home';
+        let formData = new FormData();
+        formData.append("type", type);
+        this.$http.post('/config/msgget',formData,{headers:{'Content-Type': 'application/x-www-form-urlencoded'}}).then(res =>{
+            this.LogoInfoList = res.data.data.logo;
+            console.log(this.bottomInfoList)
+        }).catch(err => {
+            console.log(err)
+        })
       },
+      //显示数据
+      changeView(index){
+        this.logo = this.LogoInfoList[index]
+      },
+    },
 }
 </script>
 

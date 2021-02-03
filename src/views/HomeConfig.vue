@@ -31,7 +31,7 @@ export default {
       this.menu.center = this.centerInfoList
       this.menu.logo = this.LogoInfoList
       let obj={"menu.home":this.menu}
-      this.$http.post('/config/msgset',JSON.stringify(obj),{headers:{'Content-Type': 'application/json'}}).then(res => {
+      this.$http.post('/config/msgset',JSON.stringify(obj).replace(/_/g,"-"),{headers:{'Content-Type': 'application/json'}}).then(res => {
         console.log(res)
       }).catch(err => {
         console.log(err)

@@ -82,11 +82,8 @@ export default {
         //点击按钮表单数据增加进数组
         addArray(){
            this.change()
-           let o = Object.assign({},this.logo)
+           let o = Object.assign({},JSON.parse(JSON.stringify(this.logo).replace(/_/g,"-")))
            this.$store.commit("addLogo",o)
-           //console.log(this.logo)
-          //  this.LogoInfoList.push(this.logo)
-          //  console.dir(this.LogoInfoList);
         },
          //重置
         handleReset(name) {

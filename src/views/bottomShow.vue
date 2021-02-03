@@ -2,7 +2,7 @@
   <div class="bottomShow">
     <br>
     <span style="margin-left:1%;">点击按钮显示数据:</span>
-    <Button type="info" v-for="(item,index) in loginInfoList" @click="changeView(index)" :key="index">{{index+1}}</Button>
+    <Button type="info" v-for="(item,index) in bottomInfoList" @click="changeView(index)" :key="index">{{index+1}}</Button>
     <Divider />
     <Form :model="bottom" :label-width="200" class="formClass"  inline>
       <FormItem label="tag">
@@ -168,8 +168,8 @@ export default {
           fontSize:'',//number
           config: {
               scanner: {
-                qrcode: true,
-                store: true
+                qrcode: false,
+                store: false
               }
           },
           imgSize: [
@@ -182,11 +182,31 @@ export default {
       bottomInfoList:[]
     }
   },
+  created(){
+      this.getHomeDate();
+  },
   methods: {
       addArray(){
-          this.bottomInfoList.push(this.bottom);
-          console.dir(this.bottomInfoList)
-      }
+        this.bottomInfoList.push(this.bottom);
+        console.dir(this.bottomInfoList)
+      },
+      //调用接口获取数据
+      getHomeDate(){
+        let type='menu.home';
+        let formData = new FormData();
+        formData.append("type", type);
+        this.$http.post('/config/msgget',formData,{headers:{'Content-Type': 'application/x-www-form-urlencoded'}}).then(res =>{
+            this.bottomInfoList = res.data.data.bottom;
+            console.log(this.bottomInfoList)
+        }).catch(err => {
+            console.log(err)
+        })
+      },
+      //显示数据
+      changeView(index){
+        this.bottom = this.bottomInfoList[index]
+            
+      },
   },
 }
 </script>
