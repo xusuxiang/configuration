@@ -30,14 +30,14 @@
           <Input v-model="logo.left_top_before.url" placeholder=""/>
         </FormItem>
         <FormItem label="margin">
-          <Input v-model="logo.left_top_before.margin.margin" placeholder=""/>
+          <Input v-model="logo.left_top_before.margin" placeholder=""/>
         </FormItem>
         <FormItem label="size">
-          <Input v-model="logo.left_top_before.size.size" placeholder=""/>
+          <Input v-model="logo.left_top_before.size" placeholder=""/>
         </FormItem>
-        <Button type="success" class="btn" @click="addArray">增加</Button>
+        <Button type="info" class="btn" @click="goBack">返回</Button>
+        <Button type="success" style="margin-left: 8px" @click="addArray">增加</Button>
         <Button @click="handleReset('formDynamic')" style="margin-left: 8px">重置</Button>
-        <Button type="primary" style="margin-left: 8px">提交</Button>
     </Form>
     
   </div>
@@ -48,21 +48,16 @@ export default {
   name: 'logo',
       data () {
         return {
-          //logo
           logo:{
             ignoreLockState: false,
             ignoreBroken: false,
             checkRemaining: false,
-            left_top_before: {
+            left_top_before: {//-怎么能做为变量呢
                 border: "",
-                border_radius: "",
+                border_radius: "",//-怎么能做为变量呢
                 url: "",
-                margin: {
-                  margin:''
-                  },
-                size: {
-                  size:''
-                }
+                margin: [],
+                size: []
             }
           },
           //数组
@@ -70,12 +65,21 @@ export default {
         }
       },
       methods: {
+        //返回到上一层
+        goBack(){
+          this.$router.go(-1);
+        },
         //点击按钮表单数据增加进数组
         addArray(){
           //console.log(this.logo)
           this.LogoInfoList.push(this.logo)
           console.dir(this.LogoInfoList);
-        }
+        },
+         //重置
+        handleReset(name) {
+          console.log(name)
+        this.$refs[name].resetFields();
+        },
       },
 }
 </script>

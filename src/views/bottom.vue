@@ -1,7 +1,7 @@
 <template>
   <div class="bottom">
     <Divider>bottom配置</Divider>
-    <Form :model="bottom" :label-width="200" class="formClass"  inline>
+    <Form ref="formDynamic" :model="bottom" :label-width="200" class="formClass"  inline>
       <FormItem label="tag">
          <Input v-model="bottom.tag" placeholder=""/>
       </FormItem>
@@ -93,7 +93,7 @@
           </i-switch>
       </FormItem>
       <FormItem label="fontSize">
-         <Input v-model="bottom.fontSize" placeholder=""/>
+         <Input v-model="bottom.fontSize" placeholder="" number/>
       </FormItem>
       <FormItem label="qrcode">
           <i-switch v-model="bottom.config.scanner.qrcode" size="large">
@@ -129,9 +129,10 @@
          </i-switch>
       </FormItem>
     </Form>
-    <Button type="success" class="btn" @click="addArray">增加</Button>
+    <Button type="info" class="btn" @click="goBack">返回</Button>
+    <Button type="success" style="margin-left: 8px" @click="addArray">增加</Button>
     <Button @click="handleReset('formDynamic')" style="margin-left: 8px">重置</Button>
-    <Button type="primary" style="margin-left: 8px">提交</Button>
+    <br/><br/>
   </div>
 </template>
 
@@ -141,19 +142,19 @@ export default {
   data () {
     return {
       bottom:{
-        tag: "settings",
-        icon: "el-icon-mysetting",
-        background: "#4B4B4B",
-        color: "#FFFFFF",
-        next: "DDLSettingPage",
+        tag: "",
+        icon: "",
+        background: "",
+        color: "",
+        next: "",
         query: {
-            type: "setting"
+            type: ""
         },
         switch:{
-          login: true,
+          login: false,
           selection: false,
           print: false,
-          checkCover: true,
+          checkCover: false,
           trail: false,
           trailEditable: false,
           additional: false,
@@ -163,30 +164,37 @@ export default {
           exchangeBox: false,
           archiveBox: false
         },
-          fontSize:3.0,
+          fontSize:'',
           config: {
               scanner: {
-                qrcode: true,
-                store: true
+                qrcode: false,
+                store: false
               }
           },
           imgSize: [
-            // 37.5,
-            // 46.875
           ],
-          ignoreLockState: true,
-          ignoreBroken: true,
-          checkRemaining: true
+          ignoreLockState: false,
+          ignoreBroken: false,
+          checkRemaining: false
       },
       //提交到以下数组
       bottomInfoList:[]
     }
   },
   methods: {
-      addArray(){
-          this.bottomInfoList.push(this.bottom);
-          console.dir(this.bottomInfoList)
-      }
+    //返回到上一层
+    goBack(){
+        this.$router.go(-1);//返回上一层
+    },
+    addArray(){
+        this.bottomInfoList.push(this.bottom);
+        console.dir(this.bottomInfoList)
+    },
+    //重置
+    handleReset(name) {
+        console.log(name)
+      this.$refs[name].resetFields();
+    },
   },
 }
 </script>
@@ -196,7 +204,7 @@ export default {
     margin-left: 1%;
   } */
   .btn{
-      margin-left: 45%;
+      margin-left: 40%;
   }
   .formClass{
       margin-top: 1%;

@@ -1,7 +1,7 @@
 <template>
   <div class="center">
     <Divider>center配置</Divider>
-    <Form :model="center" :label-width="200" class="formClass" inline>
+    <Form ref="formDynamic" :model="center" :label-width="200" class="formClass" inline>
          <FormItem label="tag">
             <Input v-model="center.tag" placeholder=""/>
          </FormItem>
@@ -12,7 +12,7 @@
             <Input v-model="center.img" placeholder=""/>
          </FormItem>
          <FormItem label="flex">
-            <Input v-model="center.flex" placeholder=""/>
+            <Input v-model="center.flex" placeholder="" number/>
          </FormItem>
          <FormItem label="background">
             <Input v-model="center.background" placeholder=""/>
@@ -96,7 +96,7 @@
             </i-switch>
         </FormItem>
         <FormItem label="fontSize">
-         <Input v-model="center.fontSize" placeholder=""/>
+         <Input v-model="center.fontSize" placeholder="" number/>
        </FormItem>
        <FormItem label="qrcode">
            <i-switch v-model="center.config.scanner.qrcode" size="large">
@@ -132,9 +132,10 @@
          </i-switch>
       </FormItem>
     </Form>
-    <Button type="success" class="btn" @click="addArray">增加</Button>
+    <Button type="info" class="btn" @click="goBack">返回</Button>
+    <Button type="success" style="margin-left: 8px" @click="addArray">增加</Button>
     <Button @click="handleReset('formDynamic')" style="margin-left: 8px">重置</Button>
-    <Button type="primary" style="margin-left: 8px">提交</Button>
+    <br/><br/>
   </div>
 </template>
 
@@ -144,18 +145,18 @@ export default {
   data () {
     return {
       center:{
-        tag: "normalScan",
-         title: "扫描报销",
-         img: "http://192.168.1.132:9003/ddlSource/scanCommit.png",
-         flex: 1,
-         background: "#87E8DF",
-         color: "#535959",
-         next: "DDLScanDocStartPage",
+        tag: "",
+         title: "",
+         img: "",
+         flex: '',//number
+         background: "",
+         color: "",
+         next: "",
          switch: {
-            login: true,
+            login: false,
             selection: false,
             print: false,
-            checkCover: true,
+            checkCover: false,
             trail: false,
             trailEditable: false,
             additional: false,
@@ -165,37 +166,44 @@ export default {
             exchangeBox: false,
             archiveBox: false
          },
-          fontSize: 3.5,
-            config: {
-               scanner: {
-                  qrcode: true,
-                  store: true
-               }
-            },
+         fontSize: '',//number
+         config: {
+            scanner: {
+               qrcode: false,
+               store: false
+            }
+         },
          imgSize: [
-            37.5,
-            46.875
          ],
          ignoreLockState: false,
          ignoreBroken: false,
-         checkRemaining: true
+         checkRemaining: false
       },
       //空数组显示用的
       centerInfoList:[]
     }
   },
    methods: {
+      //返回到上一层
+      goBack(){
+         this.$router.go(-1);
+      },
       addArray(){
           this.centerInfoList.push(this.center);
           console.dir(this.centerInfoList)
-      }
+      },
+      //重置
+      handleReset(name) {
+         console.log(name)
+      this.$refs[name].resetFields();
+      },
   },
 }
 </script>
 
 <style scoped>
    .btn{
-         margin-left: 45%;
+         margin-left: 40%;
    }
    .formClass{
       margin-top: 1%;

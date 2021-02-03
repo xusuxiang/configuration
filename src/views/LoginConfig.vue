@@ -129,9 +129,9 @@
         </i-switch>
       </FormItem>
     </Form>
-    <Button type="success" class="btn" @click="addArray">增加</Button>
+    <Button type="primary" class="btn" @click="addArray">增加</Button>
     <Button @click="handleReset('formDynamic')" style="margin-left: 8px">重置</Button>
-    <Button type="primary" style="margin-left: 8px" @click="submitData">提交</Button>
+    <Button type="success" style="margin-left: 8px" @click="submitData">提交</Button>
     <br/><br/>
   </div>
 </template>
