@@ -99,6 +99,12 @@
                   <span slot="close">false</span>
               </i-switch>
           </FormItem>
+           <FormItem label="boxCodeEditable" prop="switch.boxCodeEditable">
+             <i-switch v-model="login.switch.boxCodeEditable" size="large">
+                <span slot="open">true</span>
+                <span slot="close">false</span>
+             </i-switch>
+          </FormItem>
           <FormItem label="fontSize">
             <Input v-model="login.fontSize" placeholder=""/>
           </FormItem>
@@ -155,7 +161,8 @@ export default {
                 multiScanl: false,
                 onlyScan: false,
                 exchangeBox: false,
-                archiveBox: false
+                archiveBox: false,
+                boxCodeEditable: false
             },
             fontSize: null,
             imgSize: [
@@ -165,26 +172,41 @@ export default {
             ignoreBroken: false,
             checkRemaining: false
         },
-        // loginInfoList:[]
+        loginInfoList:[]
     }
   },
+  created() {
+    this.getLoginDate();
+  },
   methods: {
+    //调用接口获取数据
+    getLoginDate(){
+      let type='menu.login';
+      let formData = new FormData();
+      formData.append("type", type);
+      this.$http.post('/config/msgget',formData,{headers:{'Content-Type': 'application/x-www-form-urlencoded'}}).then(res =>{
+        this.loginInfoList = res.data.data
+      }).catch(err => {
+       console.log(err)
+      this.$Message.error(res.data.msg+'提交失败');
+      })
+    },
     //显示数据
     changeView(index){
         this.login=this.loginInfoList[index]
         
     },
-    //修改数据
-    updateData(index){
-        // this.$store.commit('addConfig',this.login[index])
-        // console.log(this.$store.state[index])
-        this.$Message.info('保存成功');
-    }
+    // //修改数据
+    // updateData(index){
+    //     // this.$store.commit('addConfig',this.login[index])
+    //     // console.log(this.$store.state[index])
+    //     this.$Message.info('保存成功');
+    // }
   },
   computed:{
-      loginInfoList(){
-          return this.$store.state.globalConfig
-      }
+    //   loginInfoList(){
+    //       return this.$store.state.globalConfig
+    //   }
   }
 }
 </script>
