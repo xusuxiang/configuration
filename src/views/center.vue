@@ -2,130 +2,130 @@
   <div class="center">
     <Divider>center配置</Divider>
     <Form ref="formDynamic" :model="center" :label-width="200" class="formClass" inline>
-         <FormItem label="tag">
+         <FormItem label="tag" prop="tag">
             <Input v-model="center.tag" placeholder=""/>
          </FormItem>
-         <FormItem label="title">
+         <FormItem label="title" prop="title">
             <Input v-model="center.title" placeholder=""/>
          </FormItem>
-         <FormItem label="img">
+         <FormItem label="img" prop="img">
             <Input v-model="center.img" placeholder=""/>
          </FormItem>
-         <FormItem label="flex">
+         <FormItem label="flex" prop="flex">
             <Input v-model="center.flex" placeholder="" number/>
          </FormItem>
-         <FormItem label="background">
+         <FormItem label="background" prop="background">
             <Input v-model="center.background" placeholder=""/>
          </FormItem>
-         <FormItem label="color">
+         <FormItem label="color" prop="color">
             <Input v-model="center.color" placeholder=""/>
          </FormItem>
-         <FormItem label="next">
+         <FormItem label="next" prop="next">
             <Input v-model="center.next" placeholder=""/>
          </FormItem>
-         <FormItem label="login">
+         <FormItem label="login" prop="switch.login">
            <i-switch v-model="center.switch.login" size="large">
                 <span slot="open">true</span>
                 <span slot="close">false</span>
             </i-switch>
         </FormItem>
-        <FormItem label="selection">
+        <FormItem label="selection" prop="switch.selection">
            <i-switch v-model="center.switch.selection" size="large">
                 <span slot="open">true</span>
                 <span slot="close">false</span>
             </i-switch>
         </FormItem>
-        <FormItem label="print">
+        <FormItem label="print" prop="switch.print">
            <i-switch v-model="center.switch.print" size="large">
                 <span slot="open">true</span>
                 <span slot="close">false</span>
             </i-switch>
         </FormItem>
-        <FormItem label="checkCover">
+        <FormItem label="checkCover" prop="switch.checkCover">
            <i-switch v-model="center.switch.checkCover" size="large">
                 <span slot="open">true</span>
                 <span slot="close">false</span>
             </i-switch>
         </FormItem>
-        <FormItem label="trail">
+        <FormItem label="trail" prop="switch.trail">
            <i-switch v-model="center.switch.trail" size="large">
                 <span slot="open">true</span>
                 <span slot="close">false</span>
             </i-switch>
         </FormItem>
-        <FormItem label="trailEditable">
+        <FormItem label="trailEditable" prop="switch.trailEditable">
            <i-switch v-model="center.switch.trailEditable" size="large">
                 <span slot="open">true</span>
                 <span slot="close">false</span>
             </i-switch>
         </FormItem>
-        <FormItem label="additional">
+        <FormItem label="additional" prop="switch.additional">
            <i-switch v-model="center.switch.additional" size="large">
                 <span slot="open">true</span>
                 <span slot="close">false</span>
             </i-switch>
         </FormItem>
-        <FormItem label="singleTrial">
+        <FormItem label="singleTrial" prop="switch.singleTrial">
            <i-switch v-model="center.switch.singleTrial" size="large">
                 <span slot="open">true</span>
                 <span slot="close">false</span>
             </i-switch>
         </FormItem>
-        <FormItem label="multiScanl">
+        <FormItem label="multiScanl" prop="switch.multiScanl">
            <i-switch v-model="center.switch.multiScanl" size="large">
                 <span slot="open">true</span>
                 <span slot="close">false</span>
             </i-switch>
         </FormItem>
-        <FormItem label="onlyScan">
+        <FormItem label="onlyScan" prop="switch.onlyScan">
            <i-switch v-model="center.switch.onlyScan" size="large">
                 <span slot="open">true</span>
                 <span slot="close">false</span>
             </i-switch>
         </FormItem>
-        <FormItem label="exchangeBox">
+        <FormItem label="exchangeBox" prop="switch.exchangeBox">
            <i-switch v-model="center.switch.exchangeBox" size="large">
                 <span slot="open">true</span>
                 <span slot="close">false</span>
             </i-switch>
         </FormItem>
-         <FormItem label="archiveBox">
+         <FormItem label="archiveBox" prop="switch.archiveBox">
            <i-switch v-model="center.switch.archiveBox" size="large">
                 <span slot="open">true</span>
                 <span slot="close">false</span>
             </i-switch>
         </FormItem>
-        <FormItem label="fontSize">
+        <FormItem label="fontSize" prop="fontSize">
          <Input v-model="center.fontSize" placeholder="" number/>
        </FormItem>
-       <FormItem label="qrcode">
+       <FormItem label="qrcode" prop="config.scanner.qrcode">
            <i-switch v-model="center.config.scanner.qrcode" size="large">
                 <span slot="open">true</span>
                 <span slot="close">false</span>
             </i-switch>
        </FormItem>
-        <FormItem label="store">
+        <FormItem label="store" prop="config.scanner.store">
            <i-switch v-model="center.config.scanner.store" size="large">
                 <span slot="open">true</span>
                 <span slot="close">false</span>
             </i-switch>
        </FormItem>
-       <FormItem label="imgSize">
+       <FormItem label="imgSize" prop="imgSize">
          <Input v-model="center.imgSize" placeholder=""/>
       </FormItem>
-      <FormItem label="ignoreLockState">
+      <FormItem label="ignoreLockState" prop="ignoreLockState">
          <i-switch v-model="center.ignoreLockState" size="large">
                <span slot="open">true</span>
                <span slot="close">false</span>
          </i-switch>
       </FormItem>
-       <FormItem label="ignoreBroken">
+       <FormItem label="ignoreBroken" prop="ignoreBroken">
          <i-switch v-model="center.ignoreBroken" size="large">
                <span slot="open">true</span>
                <span slot="close">false</span>
          </i-switch>
       </FormItem>
-       <FormItem label="checkRemaining">
+       <FormItem label="checkRemaining" prop="checkRemaining">
          <i-switch v-model="center.checkRemaining" size="large">
                <span slot="open">true</span>
                <span slot="close">false</span>
@@ -179,23 +179,34 @@ export default {
          ignoreBroken: false,
          checkRemaining: false
       },
-      //空数组显示用的
-      centerInfoList:[]
+      arrList:[],//为imgSize做转换的
+      centerInfoList:[]//空数组显示用的
     }
   },
    methods: {
+      change(){
+         if(this.center.imgSize!=0){
+         var str = this.center.imgSize.split(",");
+         for(var k in str){
+            this.arrList.push(Number(str[k]))
+         }
+         this.center.imgSize = this.arrList;
+         }
+      },
       //返回到上一层
       goBack(){
          this.$router.go(-1);
       },
       addArray(){
-          this.centerInfoList.push(this.center);
-          console.dir(this.centerInfoList)
+          this.change()
+          let o = Object.assign({},this.center)
+          this.$store.commit("addCenter",o)
+         //  this.centerInfoList.push(this.center);
+         //  console.dir(this.centerInfoList)
       },
       //重置
       handleReset(name) {
-         console.log(name)
-      this.$refs[name].resetFields();
+         this.$refs[name].resetFields();
       },
   },
 }

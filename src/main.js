@@ -12,11 +12,19 @@ Vue.use(Vuex)
 
 let store = new Vuex.Store({
   state: {
-    globalConfig:[],//全局的
+    bottomConfig:[],
+    centerConfig:[],
+    logoConfig:[]
   },
   mutations:{
-    addSubmitDate(state,config){
-      state.globalConfig.push(config)
+    addBottom(state,config){
+      state.bottomConfig.push(config)
+    },
+    addCenter(state,config){
+      state.centerConfig.push(config)
+    },
+    addLogo(state,config){
+      state.logoConfig.push(config)
     }
   }
 })

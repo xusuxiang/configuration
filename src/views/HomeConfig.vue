@@ -17,27 +17,36 @@ export default {
   components:{},
   data() {
     return {
-      infoDate:[]
+      menu:{
+        bottom:[],
+        center:[],
+        logo:[]
+      }
     }
   },
   methods: {
     submitData(){
       //测试
-      this.infoDate = this.bottomInfoList
-      console.log(this.infoDate)
-      // let obj={"menu.home":this.menu}//把数组赋值给对象，以这样的形式：{menu.login: []}
-      // this.$http.post('/config/msgset',JSON.stringify(obj),{headers:{'Content-Type': 'application/json'}}).then(res =>{
-      //   console.log(res.data.msg)
-      // this.$Message.success(res.data.msg);
-      // }).catch(err => {
-      //   console.log(err)
-      // this.$Message.error(res.data.msg+'提交失败');
-      // })
+      this.menu.bottom = this.bottomInfoList
+      this.menu.center = this.centerInfoList
+      this.menu.logo = this.LogoInfoList
+      let obj={"menu.home":this.menu}
+      this.$http.post('/config/msgset',JSON.stringify(obj),{headers:{'Content-Type': 'application/json'}}).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
     },
   },
   computed:{
     bottomInfoList(){
-      return this.$store.state.globalConfig
+      return this.$store.state.bottomConfig
+    },
+    centerInfoList(){
+      return this.$store.state.centerConfig
+    },
+    LogoInfoList(){
+      return this.$store.state.logoConfig
     }
   }
 }

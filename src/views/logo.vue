@@ -1,38 +1,38 @@
 <template>
   <div class="logo">
     <Divider orientation="left">logo配置</Divider>
-      <Form :model="logo" :label-width="100" style="width:40%;text-align: center;">
-        <FormItem label="ignoreLockState">
+      <Form ref="formDynamic" :model="logo" :label-width="100" style="width:40%;text-align: center;">
+        <FormItem label="ignoreLockState" prop="ignoreLockState">
             <i-switch v-model="logo.ignoreLockState" size="large">
                   <span slot="open">true</span>
                   <span slot="close">false</span>
             </i-switch>
         </FormItem>
-          <FormItem label="ignoreBroken">
+          <FormItem label="ignoreBroken" prop="ignoreBroken">
             <i-switch v-model="logo.ignoreBroken" size="large">
                   <span slot="open">true</span>
                   <span slot="close">false</span>
             </i-switch>
         </FormItem>
-          <FormItem label="checkRemaining">
+          <FormItem label="checkRemaining" prop="checkRemaining">
             <i-switch v-model="logo.checkRemaining" size="large">
                   <span slot="open">true</span>
                   <span slot="close">false</span>
             </i-switch>
         </FormItem>
-        <FormItem label="border">
+        <FormItem label="border" prop="left_top_before.border">
           <Input v-model="logo.left_top_before.border" placeholder=""/>
         </FormItem>
-        <FormItem label="border_radius">
+        <FormItem label="border_radius" prop="left_top_before.border_radius">
           <Input v-model="logo.left_top_before.border_radius" placeholder=""/>
         </FormItem>
-        <FormItem label="url">
+        <FormItem label="url" prop="left_top_before.url">
           <Input v-model="logo.left_top_before.url" placeholder=""/>
         </FormItem>
-        <FormItem label="margin">
+        <FormItem label="margin" prop="left_top_before.margin">
           <Input v-model="logo.left_top_before.margin" placeholder=""/>
         </FormItem>
-        <FormItem label="size">
+        <FormItem label="size" prop="left_top_before.size">
           <Input v-model="logo.left_top_before.size" placeholder=""/>
         </FormItem>
         <Button type="info" class="btn" @click="goBack">返回</Button>
@@ -60,25 +60,37 @@ export default {
                 size: []
             }
           },
+          arrList:[],//为imgSize做转换的
           //数组
           LogoInfoList:[]
         }
       },
       methods: {
+        change(){
+          if(this.logo.left_top_before.size!=0){
+            var str = this.logo.left_top_before.size.split(",");
+            for(var k in str){
+              this.arrList.push(Number(str[k]))
+            }
+            this.logo.left_top_before.size = this.arrList;
+          }
+        },
         //返回到上一层
         goBack(){
           this.$router.go(-1);
         },
         //点击按钮表单数据增加进数组
         addArray(){
-          //console.log(this.logo)
-          this.LogoInfoList.push(this.logo)
-          console.dir(this.LogoInfoList);
+           this.change()
+           let o = Object.assign({},this.logo)
+           this.$store.commit("addLogo",o)
+           //console.log(this.logo)
+          //  this.LogoInfoList.push(this.logo)
+          //  console.dir(this.LogoInfoList);
         },
          //重置
         handleReset(name) {
-          console.log(name)
-        this.$refs[name].resetFields();
+          this.$refs[name].resetFields();
         },
       },
 }
