@@ -16,7 +16,7 @@
             <Input v-model="login.icon" placeholder=""/>
           </FormItem>
           <FormItem label="flex">
-            <Input v-model="login.flex" placeholder=""/>
+            <Input v-model="login.flex" placeholder="" number/>
           </FormItem>
           <FormItem label="background">
             <Input v-model="login.background" placeholder=""/>
@@ -106,7 +106,7 @@
              </i-switch>
           </FormItem>
           <FormItem label="fontSize">
-            <Input v-model="login.fontSize" placeholder=""/>
+            <Input v-model="login.fontSize" placeholder="" number/>
           </FormItem>
           <FormItem label="imgSize">
             <Input v-model="login.imgSize" placeholder=""/>
@@ -164,7 +164,7 @@ export default {
                 archiveBox: false,
                 boxCodeEditable: false
             },
-            fontSize: null,
+            fontSize: '',
             imgSize: [
               
             ],
@@ -172,7 +172,8 @@ export default {
             ignoreBroken: false,
             checkRemaining: false
         },
-        loginInfoList:[]
+        loginInfoList:[],//用来暂时数据的
+        menu:[],//空数组存放对象的
     }
   },
   created() {
@@ -187,8 +188,7 @@ export default {
       this.$http.post('/config/msgget',formData,{headers:{'Content-Type': 'application/x-www-form-urlencoded'}}).then(res =>{
         this.loginInfoList = res.data.data
       }).catch(err => {
-       console.log(err)
-      this.$Message.error(res.data.msg+'提交失败');
+        console.log(err)
       })
     },
     //显示数据
@@ -196,12 +196,22 @@ export default {
         this.login=this.loginInfoList[index]
         
     },
-    // //修改数据
-    // updateData(index){
-    //     // this.$store.commit('addConfig',this.login[index])
-    //     // console.log(this.$store.state[index])
-    //     this.$Message.info('保存成功');
-    // }
+    //修改数据--调用接口
+    updateData(index){
+      // this.$store.commit('addConfig',this.login[index])
+      // console.log(this.$store.state[index])
+      this.menu = this.loginInfoList[index];
+      console.log(this.loginInfoList[index])
+      console.log(this.menu);
+      let obj={"menu.login":this.menu}//把数组赋值给对象，以这样的形式：{menu.login: []}
+      this.$http.post('/config/msgset',JSON.stringify(obj),{headers:{'Content-Type': 'application/json'}}).then(res =>{
+       console.log(res.data.msg)
+      this.$Message.success(res.data.msg);
+      }).catch(err => {
+       console.log(err)
+      this.$Message.error(res.data.msg+'提交失败');
+      })
+    }
   },
   computed:{
     //   loginInfoList(){
