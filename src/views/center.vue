@@ -145,7 +145,7 @@ export default {
   data () {
     return {
       center:{
-        tag: "",
+         tag: "",
          title: "",
          img: "",
          flex: '',//number

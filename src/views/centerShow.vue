@@ -15,7 +15,7 @@
             <Input v-model="center.img" placeholder=""/>
          </FormItem>
          <FormItem label="flex">
-            <Input v-model="center.flex" placeholder=""/>
+            <Input v-model="center.flex" placeholder="" number/>
          </FormItem>
          <FormItem label="background">
             <Input v-model="center.background" placeholder=""/>
@@ -99,7 +99,7 @@
             </i-switch>
         </FormItem>
         <FormItem label="fontSize">
-         <Input v-model="center.fontSize" placeholder=""/>
+         <Input v-model="center.fontSize" placeholder="" number/>
        </FormItem>
        <FormItem label="qrcode">
            <i-switch v-model="center.config.scanner.qrcode" size="large">
@@ -135,7 +135,9 @@
          </i-switch>
       </FormItem>
     </Form>
-    <Button type="success" class="btn" @click="addArray">保存</Button>
+    <!-- <Button type="success" class="btn" @click="addArray">保存</Button> -->
+    <Button type="success" @click="updateData()" style="margin-left:40%;">保存</Button>
+    <br/><br/>
   </div>
 </template>
 
@@ -145,18 +147,18 @@ export default {
   data () {
     return {
       center:{
-        tag: "normalScan",
-         title: "扫描报销",
-         img: "http://192.168.1.132:9003/ddlSource/scanCommit.png",
-         flex: 1,
-         background: "#87E8DF",
-         color: "#535959",
-         next: "DDLScanDocStartPage",
+         tag: "",
+         title: "",
+         img: "",
+         flex: '',//number
+         background: "",
+         color: "",
+         next: "",
          switch: {
-            login: true,
+            login: false,
             selection: false,
             print: false,
-            checkCover: true,
+            checkCover: false,
             trail: false,
             trailEditable: false,
             additional: false,
@@ -166,20 +168,18 @@ export default {
             exchangeBox: false,
             archiveBox: false
          },
-          fontSize: 3.5,
+          fontSize: '',//number
             config: {
                scanner: {
-                  qrcode: true,
-                  store: true
+                  qrcode: false,
+                  store: false
                }
             },
          imgSize: [
-            37.5,
-            46.875
          ],
          ignoreLockState: false,
          ignoreBroken: false,
-         checkRemaining: true
+         checkRemaining: false
       },
       //空数组显示用的
       centerInfoList:[]

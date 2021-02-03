@@ -34,13 +34,15 @@
             <Input v-model="logo.left_top_before.url" placeholder=""/>
           </FormItem>
           <FormItem label="margin">
-            <Input v-model="logo.left_top_before.margin.margin" placeholder=""/>
+            <Input v-model="logo.left_top_before.margin" placeholder=""/>
           </FormItem>
           <FormItem label="size">
-            <Input v-model="logo.left_top_before.size.size" placeholder=""/>
+            <Input v-model="logo.left_top_before.size" placeholder=""/>
           </FormItem>
-          <Button type="success" class="btn" @click="addArray">保存</Button>
+          <!-- <Button type="success" class="btn" @click="addArray">保存</Button> --> 
         </Form>
+        <Button type="success" @click="updateData()" style="margin-left:10%;">保存</Button>
+        <br/><br/>
       </div>
   </div>
 </template>
@@ -50,7 +52,6 @@ export default {
   name: 'logoShow',
       data () {
         return {
-          //logo
           logo:{
             ignoreLockState: false,
             ignoreBroken: false,
@@ -59,12 +60,8 @@ export default {
                 border: "",
                 border_radius: "",
                 url: "",
-                margin: {
-                  margin:''
-                  },
-                size: {
-                  size:''
-                }
+                margin:[],
+                size:[]
             }
           },
           //数组

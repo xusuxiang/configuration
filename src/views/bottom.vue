@@ -177,22 +177,35 @@ export default {
           ignoreBroken: false,
           checkRemaining: false
       },
-      //提交到以下数组
-      bottomInfoList:[]
+      arrList:[],//为imgSize做转换的
+      bottomInfoList:[]//提交到以下数组
     }
   },
   methods: {
+    change(){
+      if(this.bottom.imgSize!=0){
+        var str = this.bottom.imgSize.split(",");
+        for(var k in str){
+          this.arrList.push(Number(str[k]))
+        }
+        this.bottom.imgSize = this.arrList;
+      }
+    },
     //返回到上一层
     goBack(){
         this.$router.go(-1);//返回上一层
     },
+    //增加
     addArray(){
-        this.bottomInfoList.push(this.bottom);
-        console.dir(this.bottomInfoList)
+        this.change();
+        let o = Object.assign({}, this.bottom);
+        // this.bottomInfoList.push(o);
+        this.$store.commit("addSubmitDate",o)
+        this.$Message.info("成功增加一条数据");
+        // console.log(this.bottomInfoList)
     },
     //重置
     handleReset(name) {
-        console.log(name)
       this.$refs[name].resetFields();
     },
   },

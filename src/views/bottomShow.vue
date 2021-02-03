@@ -96,7 +96,7 @@
           </i-switch>
       </FormItem>
       <FormItem label="fontSize">
-         <Input v-model="bottom.fontSize" placeholder=""/>
+         <Input v-model="bottom.fontSize" placeholder="" number/>
       </FormItem>
       <FormItem label="qrcode">
           <i-switch v-model="bottom.config.scanner.qrcode" size="large">
@@ -132,7 +132,8 @@
          </i-switch>
       </FormItem>
     </Form>
-    <Button type="success" class="btn" @click="addArray">增加</Button>
+    <Button type="success" @click="updateData()" style="margin-left:40%;">保存</Button>
+    <br/><br/>
   </div>
 </template>
 
@@ -142,19 +143,19 @@ export default {
   data () {
     return {
       bottom:{
-        tag: "settings",
-        icon: "el-icon-mysetting",
-        background: "#4B4B4B",
-        color: "#FFFFFF",
-        next: "DDLSettingPage",
+        tag: "",
+        icon: "",
+        background: "",
+        color: "",
+        next: "",
         query: {
-            type: "setting"
+            type: ""
         },
         switch:{
-          login: true,
+          login: false,
           selection: false,
           print: false,
-          checkCover: true,
+          checkCover: false,
           trail: false,
           trailEditable: false,
           additional: false,
@@ -164,7 +165,7 @@ export default {
           exchangeBox: false,
           archiveBox: false
         },
-          fontSize:3.0,
+          fontSize:'',//number
           config: {
               scanner: {
                 qrcode: true,
@@ -172,12 +173,10 @@ export default {
               }
           },
           imgSize: [
-            37.5,
-            46.875
           ],
-          ignoreLockState: true,
-          ignoreBroken: true,
-          checkRemaining: true
+          ignoreLockState: false,
+          ignoreBroken: false,
+          checkRemaining: false
       },
       //提交到以下数组
       bottomInfoList:[]

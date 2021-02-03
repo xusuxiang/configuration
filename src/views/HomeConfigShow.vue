@@ -6,6 +6,8 @@
     <router-link to="/centerShow"><Button type="primary">center</Button></router-link>
     &nbsp;&nbsp;
     <router-link to="/logoShow"><Button type="primary">logo</Button></router-link>
+    <br/>
+    <!-- <Button style="margin-top:5%;margin-left:260px;" type="success" @click="updateData">保存</Button> -->
   </div>
 </template>
 
