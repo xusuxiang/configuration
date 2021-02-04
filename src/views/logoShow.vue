@@ -87,6 +87,17 @@ export default {
             this.logo.left_top_before.size = arrList;
           }
         },
+      //使margin转换为数组
+      changeMargin(){
+        var arr = [];
+        if (this.logo.left_top_before.margin != 0) {
+          var str1 = this.logo.left_top_before.margin.split(",");
+          for(var k1 in str1){
+            arr.push(Number(str1[k1]));
+          }
+          this.logo.left_top_before.margin = arr;
+        }
+      },
       //调用接口获取数据
       getHomeDate(){
         let type='menu.home';
@@ -95,6 +106,7 @@ export default {
         this.$http.post('/config/msgget',formData,{headers:{'Content-Type': 'application/x-www-form-urlencoded'}}).then(res =>{
             this.allInfoList = res.data.data;
             this.LogoInfoList = JSON.parse(JSON.stringify(res.data.data.logo).replace(/-/g,"_"));
+            console.log(this.LogoInfoList);
         }).catch(err => {
             console.log(err)
         })
@@ -105,14 +117,16 @@ export default {
       },
        //保存按钮修改数据
       updateData(){
-          // this.change();
+          this.change();
+          this.changeMargin();
           this.menu.bottom = this.allInfoList.bottom;
           this.menu.center = this.allInfoList.center;
           this.menu.logo = this.LogoInfoList;
           let obj = {"menu.home":this.menu}
-          console.log(obj);
+          console.log(this.menu);
         this.$http.post('/config/msgset',JSON.stringify(obj).replace(/_/g,"-"),{headers:{'Content-Type': 'application/json'}}).then(res => {
             this.$Message.success(res.data.msg);
+            console.log(res.data.data);
         }).catch(err => {
             console.log(err)
         })

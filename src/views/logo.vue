@@ -67,13 +67,25 @@ export default {
       },
       methods: {
         change(){
-         var arrList = [];
+          //使size转换为数组
+          var arrList = [];
           if(this.logo.left_top_before.size!=0){
             var str = this.logo.left_top_before.size.split(",");
             for(var k in str){
-              arrList.push(Number(str[k]))
+              arrList.push(Number(str[k]));
             }
             this.logo.left_top_before.size = arrList;
+          }
+        },
+        //使margin转换为数组
+        changeMargin(){
+          var arr = [];
+          if (this.logo.left_top_before.margin != 0) {
+            var str1 = this.logo.left_top_before.margin.split(",");
+            for(var k1 in str1){
+              arr.push(Number(str1[k1]));
+            }
+            this.logo.left_top_before.margin = arr;
           }
         },
         //返回到上一层
@@ -82,7 +94,8 @@ export default {
         },
         //点击按钮表单数据增加进数组
         addArray(){
-           this.change()
+           this.change();
+           this.changeMargin();
            let o = Object.assign({},JSON.parse(JSON.stringify(this.logo).replace(/_/g,"-")))
            this.$Message.info("成功增加一条数据");
            this.$store.commit("addLogo",o)
