@@ -85,7 +85,9 @@ export default {
         formData.append("type", type);
         this.$http.post('/config/msgget',formData,{headers:{'Content-Type': 'application/x-www-form-urlencoded'}}).then(res =>{
             this.LogoInfoList = res.data.data.logo;
-            console.log(this.bottomInfoList)
+            // res= res.data.data.logo;
+            // this.LogoInfoList = res.replace("-",/_/g)
+            console.log(this.LogoInfoList.replace("-",/_/g))
         }).catch(err => {
             console.log(err)
         })

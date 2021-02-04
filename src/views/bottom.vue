@@ -204,10 +204,8 @@ export default {
     addArray(){
         this.change();
         let o = Object.assign({}, this.bottom);
-        // this.bottomInfoList.push(o);
-        this.$store.commit("addBottom",o)
         this.$Message.info("成功增加一条数据");
-        // console.log(this.bottomInfoList)
+        this.$store.commit("addBottom",o)
     },
    
   },

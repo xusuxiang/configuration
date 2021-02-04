@@ -83,6 +83,7 @@ export default {
         addArray(){
            this.change()
            let o = Object.assign({},JSON.parse(JSON.stringify(this.logo).replace(/_/g,"-")))
+           this.$Message.info("成功增加一条数据");
            this.$store.commit("addLogo",o)
         },
          //重置

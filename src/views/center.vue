@@ -199,10 +199,9 @@ export default {
       },
       addArray(){
           this.change()
-          let o = Object.assign({},this.center)
+          let o = Object.assign({},this.center);
+          this.$Message.info("成功增加一条数据");
           this.$store.commit("addCenter",o)
-         //  this.centerInfoList.push(this.center);
-         //  console.dir(this.centerInfoList)
       },
       //重置
       handleReset(name) {

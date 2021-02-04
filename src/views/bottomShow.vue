@@ -179,17 +179,19 @@ export default {
           checkRemaining: false
       },
       //提交到以下数组
-      bottomInfoList:[]
+      bottomInfoList:[],
+        menu:{
+            bottom:[],
+            center:[],
+            logo:[]
+        },
+      allInfoList:{}
     }
   },
   created(){
       this.getHomeDate();
   },
   methods: {
-      addArray(){
-        this.bottomInfoList.push(this.bottom);
-        console.dir(this.bottomInfoList)
-      },
       //调用接口获取数据
       getHomeDate(){
         let type='menu.home';
@@ -197,7 +199,7 @@ export default {
         formData.append("type", type);
         this.$http.post('/config/msgget',formData,{headers:{'Content-Type': 'application/x-www-form-urlencoded'}}).then(res =>{
             this.bottomInfoList = res.data.data.bottom;
-            console.log(this.bottomInfoList)
+            this.allInfoList = res.data.data;
         }).catch(err => {
             console.log(err)
         })
@@ -205,8 +207,19 @@ export default {
       //显示数据
       changeView(index){
         this.bottom = this.bottomInfoList[index]
-            
       },
+      //保存按钮修改数据
+      updateData(){
+          this.menu.bottom = this.bottomInfoList;
+          this.menu.center = this.allInfoList.center;
+          this.menu.logo = this.allInfoList.logo;
+          let obj = {"menu.home":this.menu}
+        this.$http.post('/config/msgset',JSON.stringify(obj),{headers:{'Content-Type': 'application/json'}}).then(res => {
+            this.$Message.success(res.data.msg);
+        }).catch(err => {
+            console.log(err)
+        })
+      }
   },
 }
 </script>

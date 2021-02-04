@@ -135,7 +135,6 @@
          </i-switch>
       </FormItem>
     </Form>
-    <!-- <Button type="success" class="btn" @click="addArray">保存</Button> -->
     <Button type="success" @click="updateData()" style="margin-left:40%;">保存</Button>
     <br/><br/>
   </div>
@@ -182,17 +181,19 @@ export default {
          checkRemaining: false
       },
       //空数组显示用的
-      centerInfoList:[]
+      centerInfoList:[],
+      menu:{
+            bottom:[],
+            center:[],
+            logo:[]
+      },
+      allInfoList:{}
     }
   },
   created(){
       this.getHomeDate();
   },
    methods: {
-      addArray(){
-          this.centerInfoList.push(this.center);
-          console.dir(this.centerInfoList)
-      },
        //调用接口获取数据
       getHomeDate(){
         let type='menu.home';
@@ -200,7 +201,7 @@ export default {
         formData.append("type", type);
         this.$http.post('/config/msgget',formData,{headers:{'Content-Type': 'application/x-www-form-urlencoded'}}).then(res =>{
             this.centerInfoList = res.data.data.center;
-            console.log(this.bottomInfoList)
+            this.allInfoList = res.data.data;
         }).catch(err => {
             console.log(err)
         })
@@ -208,8 +209,20 @@ export default {
       //显示数据
       changeView(index){
         this.center = this.centerInfoList[index]
-            
       },
+      //保存按钮修改数据
+      updateData(){
+          this.menu.bottom = this.allInfoList.bottomInfoList;
+          this.menu.center = this.centerInfoList;
+          this.menu.logo = this.allInfoList.logo;
+          let obj = {"menu.home":this.menu}
+          console.log(obj);
+        this.$http.post('/config/msgset',JSON.stringify(obj),{headers:{'Content-Type': 'application/json'}}).then(res => {
+            this.$Message.success(res.data.msg);
+        }).catch(err => {
+            console.log(err)
+        })
+      }
   },
 }
 </script>

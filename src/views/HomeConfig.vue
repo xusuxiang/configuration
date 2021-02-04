@@ -26,13 +26,14 @@ export default {
   },
   methods: {
     submitData(){
-      //测试
+      debugger
       this.menu.bottom = this.bottomInfoList
       this.menu.center = this.centerInfoList
       this.menu.logo = this.LogoInfoList
       let obj={"menu.home":this.menu}
+      console.log(obj);
       this.$http.post('/config/msgset',JSON.stringify(obj).replace(/_/g,"-"),{headers:{'Content-Type': 'application/json'}}).then(res => {
-        console.log(res)
+        this.$Message.success(res.data.msg);
       }).catch(err => {
         console.log(err)
       })
