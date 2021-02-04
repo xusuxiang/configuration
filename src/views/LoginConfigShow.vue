@@ -145,7 +145,7 @@ export default {
             tag:'',
             title:'',
             icon:'',
-            flex:'',
+            flex:'',//number
             background:'',
             color:'',
             next:'',
@@ -164,10 +164,8 @@ export default {
                 archiveBox: false,
                 boxCodeEditable: false
             },
-            fontSize: '',
-            imgSize: [
-              
-            ],
+            fontSize: '',//number
+            imgSize: [],//数组
             ignoreLockState: false,
             ignoreBroken: false,
             checkRemaining: false
@@ -180,6 +178,17 @@ export default {
     this.getLoginDate();
   },
   methods: {
+    //把imgSize从字符串转化为数组
+    change(){
+      var arrList = [];
+      if(this.login.imgSize!=0){
+        var str = this.login.imgSize.split(",");
+        for(var k in str){
+          arrList.push(Number(str[k]));
+        }
+        this.login.imgSize = arrList;
+      }
+    },
     //调用接口获取数据
     getLoginDate(){
       let type='menu.login';
@@ -198,6 +207,7 @@ export default {
     },
     //修改数据--调用接口
     updateData(){
+      this.change();
       // this.$store.commit('addConfig',this.login[index])
       this.menu = this.loginInfoList
       console.log(this.menu);

@@ -27,7 +27,7 @@
           <FormItem label="border">
             <Input v-model="logo.left_top_before.border" placeholder=""/>
           </FormItem>
-          <FormItem label="border_radius">
+          <FormItem label="border-radius">
             <Input v-model="logo.left_top_before.border_radius" placeholder=""/>
           </FormItem>
           <FormItem label="url">
@@ -39,7 +39,6 @@
           <FormItem label="size">
             <Input v-model="logo.left_top_before.size" placeholder=""/>
           </FormItem>
-          <!-- <Button type="success" class="btn" @click="addArray">保存</Button> --> 
         </Form>
         <Button type="success" @click="updateData()" style="margin-left:10%;">保存</Button>
         <br/><br/>
@@ -65,29 +64,37 @@ export default {
           }
         },
         //数组
-        LogoInfoList:[]
+        LogoInfoList:[],
+        menu:{
+            bottom:[],
+            center:[],
+            logo:[]
+        },
+        allInfoList:{}
       }
     },
     created(){
       this.getHomeDate();
     },
     methods: {
-      //点击按钮表单数据增加进数组
-      addArray(){
-        //console.log(this.logo)
-        this.LogoInfoList.push(this.logo)
-        console.dir(this.LogoInfoList);
-      },
-        //调用接口获取数据
+      change(){
+          var arrList = [];
+          if(this.logo.left_top_before.size!=0){
+            var str = this.logo.left_top_before.size.split(",");
+            for(var k in str){
+              arrList.push(Number(str[k]))
+            }
+            this.logo.left_top_before.size = arrList;
+          }
+        },
+      //调用接口获取数据
       getHomeDate(){
         let type='menu.home';
         let formData = new FormData();
         formData.append("type", type);
         this.$http.post('/config/msgget',formData,{headers:{'Content-Type': 'application/x-www-form-urlencoded'}}).then(res =>{
-            this.LogoInfoList = res.data.data.logo;
-            // res= res.data.data.logo;
-            // this.LogoInfoList = res.replace("-",/_/g)
-            console.log(this.LogoInfoList.replace("-",/_/g))
+            this.allInfoList = res.data.data;
+            this.LogoInfoList = JSON.parse(JSON.stringify(res.data.data.logo).replace(/-/g,"_"));
         }).catch(err => {
             console.log(err)
         })
@@ -96,6 +103,20 @@ export default {
       changeView(index){
         this.logo = this.LogoInfoList[index]
       },
+       //保存按钮修改数据
+      updateData(){
+          // this.change();
+          this.menu.bottom = this.allInfoList.bottom;
+          this.menu.center = this.allInfoList.center;
+          this.menu.logo = this.LogoInfoList;
+          let obj = {"menu.home":this.menu}
+          console.log(obj);
+        this.$http.post('/config/msgset',JSON.stringify(obj).replace(/_/g,"-"),{headers:{'Content-Type': 'application/json'}}).then(res => {
+            this.$Message.success(res.data.msg);
+        }).catch(err => {
+            console.log(err)
+        })
+      }
     },
 }
 </script>

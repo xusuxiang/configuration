@@ -150,7 +150,7 @@ export default {
         tag: "",
         title: "",
         icon: "",
-        flex: '',
+        flex: '',//number
         background: "",
         color: "",
         next: "",
@@ -169,13 +169,13 @@ export default {
           archiveBox: false,
           boxCodeEditable: false
         },
-        fontSize: '',
-        imgSize: [], //这个是数组
+        fontSize: '',//number
+        imgSize: [], //是数组
         ignoreLockState: false,
         ignoreBroken: false,
         checkRemaining: false,
       },
-      arrList:[],//为imgSize做转换的
+      // arrList:[],//为imgSize做转换的
       menu:[],//空数组存放对象的
     };
   },
@@ -185,19 +185,19 @@ export default {
   methods: {
     //把imgSize从字符串转化为数组
     change(){
+      var arrList = [];
       if(this.login.imgSize!=0){
         var str = this.login.imgSize.split(",");
         for(var k in str){
-          this.arrList.push(Number(str[k]))
+          arrList.push(Number(str[k]));
         }
-        this.login.imgSize = this.arrList;
+        this.login.imgSize = arrList;
       }
     },
     //增加
     addArray() {
       // this.$store.commit("addConfig", this.login);
-
-      // this.change()
+      this.change()
       let o = Object.assign({}, this.login)
       this.$Message.info("成功增加一条数据");
       this.menu.push(o)//赋值+
@@ -209,7 +209,9 @@ export default {
     },
     //调用接口提交
     submitData(){
-      this.change()
+      // this.change()
+      //提交后
+      console.log(this.menu);
       let obj={"menu.login":this.menu}//把数组赋值给对象，以这样的形式：{menu.login: []}
       this.$http.post('/config/msgset',JSON.stringify(obj),{headers:{'Content-Type': 'application/json'}}).then(res =>{
        console.log(res.data.msg)
@@ -219,7 +221,7 @@ export default {
       this.$Message.error(res.data.msg+'提交失败');
       })
     }
-  }
+  }  
 }
 </script>
 

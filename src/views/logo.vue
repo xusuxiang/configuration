@@ -23,7 +23,7 @@
         <FormItem label="border" prop="left_top_before.border">
           <Input v-model="logo.left_top_before.border" placeholder=""/>
         </FormItem>
-        <FormItem label="border_radius" prop="left_top_before.border_radius">
+        <FormItem label="border-radius" prop="left_top_before.border_radius">
           <Input v-model="logo.left_top_before.border_radius" placeholder=""/>
         </FormItem>
         <FormItem label="url" prop="left_top_before.url">
@@ -60,19 +60,20 @@ export default {
                 size: []
             }
           },
-          arrList:[],//为imgSize做转换的
+          // arrList:[],//为imgSize做转换的
           //数组
           LogoInfoList:[]
         }
       },
       methods: {
         change(){
+         var arrList = [];
           if(this.logo.left_top_before.size!=0){
             var str = this.logo.left_top_before.size.split(",");
             for(var k in str){
-              this.arrList.push(Number(str[k]))
+              arrList.push(Number(str[k]))
             }
-            this.logo.left_top_before.size = this.arrList;
+            this.logo.left_top_before.size = arrList;
           }
         },
         //返回到上一层

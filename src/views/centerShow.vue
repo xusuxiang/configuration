@@ -194,6 +194,16 @@ export default {
       this.getHomeDate();
   },
    methods: {
+      change(){
+         var arrList = [];
+         if(this.center.imgSize!=0){
+         var str = this.center.imgSize.split(",");
+         for(var k in str){
+            arrList.push(Number(str[k]))
+         }
+         this.center.imgSize = arrList;
+         }
+      },
        //调用接口获取数据
       getHomeDate(){
         let type='menu.home';
@@ -212,11 +222,11 @@ export default {
       },
       //保存按钮修改数据
       updateData(){
-          this.menu.bottom = this.allInfoList.bottomInfoList;
+          this.change();
+          this.menu.bottom = this.allInfoList.bottom;
           this.menu.center = this.centerInfoList;
           this.menu.logo = this.allInfoList.logo;
           let obj = {"menu.home":this.menu}
-          console.log(obj);
         this.$http.post('/config/msgset',JSON.stringify(obj),{headers:{'Content-Type': 'application/json'}}).then(res => {
             this.$Message.success(res.data.msg);
         }).catch(err => {

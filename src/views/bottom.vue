@@ -177,23 +177,23 @@ export default {
         ignoreBroken: false,
         checkRemaining: false
       },
-      arrList:[],//为imgSize做转换的
+    //   arrList:[],//为imgSize做转换的
       bottomInfoList:[]//提交到以下数组
     }
   },
   methods: {
     //重置
     handleReset (name) {
-        console.log(name)
         this.$refs[name].resetFields();
     },
-    change(){
+     change(){
+      var arrList = [];
       if(this.bottom.imgSize!=0){
         var str = this.bottom.imgSize.split(",");
         for(var k in str){
-          this.arrList.push(Number(str[k]))
+          arrList.push(Number(str[k]));
         }
-        this.bottom.imgSize = this.arrList;
+        this.bottom.imgSize = arrList;
       }
     },
     //返回到上一层
@@ -203,6 +203,7 @@ export default {
     //增加
     addArray(){
         this.change();
+        console.log(this.bottom);
         let o = Object.assign({}, this.bottom);
         this.$Message.info("成功增加一条数据");
         this.$store.commit("addBottom",o)

@@ -26,7 +26,6 @@ export default {
   },
   methods: {
     submitData(){
-      debugger
       this.menu.bottom = this.bottomInfoList
       this.menu.center = this.centerInfoList
       this.menu.logo = this.LogoInfoList

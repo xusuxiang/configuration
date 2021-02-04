@@ -179,18 +179,19 @@ export default {
          ignoreBroken: false,
          checkRemaining: false
       },
-      arrList:[],//为imgSize做转换的
+      // arrList:[],//为imgSize做转换的
       centerInfoList:[]//空数组显示用的
     }
   },
    methods: {
       change(){
+         var arrList = [];
          if(this.center.imgSize!=0){
          var str = this.center.imgSize.split(",");
          for(var k in str){
-            this.arrList.push(Number(str[k]))
+            arrList.push(Number(str[k]))
          }
-         this.center.imgSize = this.arrList;
+         this.center.imgSize = arrList;
          }
       },
       //返回到上一层

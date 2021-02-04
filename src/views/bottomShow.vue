@@ -192,6 +192,16 @@ export default {
       this.getHomeDate();
   },
   methods: {
+      change(){
+        var arrList = [];
+        if(this.bottom.imgSize!=0){
+            var str = this.bottom.imgSize.split(",");
+            for(var k in str){
+            arrList.push(Number(str[k]));
+            }
+            this.bottom.imgSize = arrList;
+        }
+      },
       //调用接口获取数据
       getHomeDate(){
         let type='menu.home';
@@ -210,6 +220,7 @@ export default {
       },
       //保存按钮修改数据
       updateData(){
+          this.change();
           this.menu.bottom = this.bottomInfoList;
           this.menu.center = this.allInfoList.center;
           this.menu.logo = this.allInfoList.logo;
