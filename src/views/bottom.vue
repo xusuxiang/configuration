@@ -164,7 +164,7 @@ export default {
           exchangeBox: false,
           archiveBox: false
         },
-        fontSize:'',
+        fontSize:'',//numbers
         config: {
             scanner: {
             qrcode: false,

@@ -14,7 +14,7 @@ let store = new Vuex.Store({
   state: {
     bottomConfig:[],
     centerConfig:[],
-    logoConfig:[]
+    logoConfig:{}
   },
   mutations:{
     addBottom(state,config){
@@ -24,7 +24,8 @@ let store = new Vuex.Store({
       state.centerConfig.push(config)
     },
     addLogo(state,config){
-      state.logoConfig.push(config)
+      // state.logoConfig.push(config)
+      state.logoConfig = config
     }
   }
 })

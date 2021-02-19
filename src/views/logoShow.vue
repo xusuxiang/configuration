@@ -1,8 +1,9 @@
 <template>
   <div class="logo">
      <br>
-      <span style="margin-left:1%;">点击按钮显示数据:</span>
-      <Button type="info" v-for="(item,index) in LogoInfoList" @click="changeView(index)" :key="index">{{index+1}}</Button>
+      <!-- <span style="margin-left:1%;">点击按钮显示数据:</span> -->
+      <!-- <Button type="info" v-for="(item,index) in LogoInfoList" @click="changeView(index)" :key="index">{{index+1}}</Button> -->
+      <span style="margin-left:2%;">logo展示的数据配置</span>
       <Divider />
       <div>
         <Form :model="logo" :label-width="100" style="width:40%;text-align: center;">
@@ -63,8 +64,8 @@ export default {
               size:[]
           }
         },
-        //数组
-        LogoInfoList:[],
+        //对象
+        LogoInfoList:{},
         menu:{
             bottom:[],
             center:[],
@@ -79,7 +80,7 @@ export default {
     methods: {
       change(){
           var arrList = [];
-          if(this.logo.left_top_before.size!=0){
+          if(this.logo.left_top_before.size != 0){
             var str = this.logo.left_top_before.size.split(",");
             for(var k in str){
               arrList.push(Number(str[k]))
@@ -106,15 +107,16 @@ export default {
         this.$http.post('/config/msgget',formData,{headers:{'Content-Type': 'application/x-www-form-urlencoded'}}).then(res =>{
             this.allInfoList = res.data.data;
             this.LogoInfoList = JSON.parse(JSON.stringify(res.data.data.logo).replace(/-/g,"_"));
-            console.log(this.LogoInfoList);
+            this.logo = this.LogoInfoList
+            // console.log(this.LogoInfoList);
         }).catch(err => {
             console.log(err)
         })
       },
       //显示数据
-      changeView(index){
-        this.logo = this.LogoInfoList[index]
-      },
+      // changeView(index){
+      //   this.logo = this.LogoInfoList[index]
+      // },
        //保存按钮修改数据
       updateData(){
           this.change();
@@ -124,12 +126,12 @@ export default {
           this.menu.logo = this.LogoInfoList;
           let obj = {"menu.home":this.menu}
           console.log(this.menu);
-        this.$http.post('/config/msgset',JSON.stringify(obj).replace(/_/g,"-"),{headers:{'Content-Type': 'application/json'}}).then(res => {
-            this.$Message.success(res.data.msg);
-            console.log(res.data.data);
-        }).catch(err => {
-            console.log(err)
-        })
+          this.$http.post('/config/msgset',JSON.stringify(obj).replace(/_/g,"-"),{headers:{'Content-Type': 'application/json'}}).then(res => {
+              this.$Message.success(res.data.msg);
+              // console.log(res.data.data);
+          }).catch(err => {
+              console.log(err)
+          })
       }
     },
 }

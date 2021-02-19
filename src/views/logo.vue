@@ -62,14 +62,14 @@ export default {
           },
           // arrList:[],//为imgSize做转换的
           //数组
-          LogoInfoList:[]
+          // LogoInfoList:[]
         }
       },
       methods: {
         change(){
           //使size转换为数组
           var arrList = [];
-          if(this.logo.left_top_before.size!=0){
+          if(this.logo.left_top_before.size != 0){
             var str = this.logo.left_top_before.size.split(",");
             for(var k in str){
               arrList.push(Number(str[k]));
